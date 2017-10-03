@@ -1,0 +1,338 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>TANGO Archive Installer &#8212; Archive Installator 1.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to Archive Installator’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="tango-archive-installer">
+<h1><a class="toc-backref" href="#id4">TANGO Archive Installer</a><a class="headerlink" href="#tango-archive-installer" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#tango-archive-installer" id="id4">TANGO Archive Installer</a><ul>
+<li><a class="reference internal" href="#description" id="id5">Description</a><ul>
+<li><a class="reference internal" href="#sub-modules" id="id6">sub modules</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#prerequisites" id="id7">Prerequisites</a></li>
+<li><a class="reference internal" href="#installation" id="id8">Installation</a><ul>
+<li><a class="reference internal" href="#default" id="id9">Default</a></li>
+<li><a class="reference internal" href="#custom" id="id10">Custom</a><ul>
+<li><a class="reference internal" href="#adding-devices-to-tangodb" id="id11">Adding devices to TangoDB</a></li>
+<li><a class="reference internal" href="#modifying-sql-files" id="id12">Modifying SQL files</a></li>
+<li><a class="reference internal" href="#id3" id="id13">Installation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#user-guide" id="id14">User Guide</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="description">
+<h2><a class="toc-backref" href="#id5">Description</a><a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Installer for Tango Archiving:  <a class="reference external" href="https://sourceforge.net/projects/tango-cs/files/tools/ArchivingRoot-15.2.1.zip">https://sourceforge.net/projects/tango-cs/files/tools/ArchivingRoot-15.2.1.zip</a></p>
+<p>This package:</p>
+<ul class="simple">
+<li>Installs HDB (Historical Database), TDB (Temporary Database), Archiving Manager, HDB/TDB ArchivingWatchers and HDB/TDB ArchivingExtractos as TANGO Device Servers</li>
+<li>Runs mentioned Device Servers as Windows services at startup</li>
+<li>Installs Mambo</li>
+</ul>
+<div class="section" id="sub-modules">
+<h3><a class="toc-backref" href="#id6">sub modules</a><a class="headerlink" href="#sub-modules" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">createDB.bat:</th><td class="field-body">installation/configuration of HDB/TDB databases</td>
+</tr>
+<tr class="field-even field"><th class="field-name">installDS.bat:</th><td class="field-body">installation of HDB/TDB device servers as Windows services</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">ArchivingRoot:</th><td class="field-body">Tango archiving package containing:</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>scripts for starting archiving GUIs</li>
+<li>MySql database creation scripts</li>
+<li>scripts for starting archiving Tango Device Servers</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">adddevices.py:</th><td class="field-body">adds device servers to Tango DB</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="prerequisites">
+<h2><a class="toc-backref" href="#id7">Prerequisites</a><a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Java Platform SE 6</li>
+<li>MySql Database</li>
+<li>a Tango control system</li>
+<li>PyTango</li>
+<li>NSSM</li>
+</ul>
+</div>
+<div class="section" id="installation">
+<h2><a class="toc-backref" href="#id8">Installation</a><a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>Default installation includes the following Device Servers and their instances in Tango DB:</p>
+<p>2xHDB Archiver</p>
+<ul class="simple">
+<li>archiving/hdb/hdbarchiver.01_01</li>
+<li>archiving/hdb/hdbarchiver.01_02</li>
+</ul>
+<p>2xTDB Archiver</p>
+<ul class="simple">
+<li>archiving/tdb/tdbarchiver.01_01</li>
+<li>archiving/tdb/tdbarchiver.01_02</li>
+</ul>
+<p>ArchivingManager</p>
+<ul class="simple">
+<li>archiving/archivingmanager/1</li>
+</ul>
+<p>HDBArchivingWatcher</p>
+<ul class="simple">
+<li>archiving/hdb/hdbarchivinwatcher.1</li>
+</ul>
+<p>TDBArchivingWatcher</p>
+<ul class="simple">
+<li>archiving/tdb/tdbarchivinwatcher.1</li>
+</ul>
+<p>HDBArchivingExtractor</p>
+<ul class="simple">
+<li>archiving/hdb/hdbextractor.1</li>
+</ul>
+<p>TDBArchivingExtractor</p>
+<ul class="simple">
+<li>archiving/tdb/tdbextractor.1</li>
+</ul>
+<p>If those settings don’t meet your requirements, you’ll have to edit some of files included in this package. In that case go to <a class="reference internal" href="#custom"><span class="std std-ref">Custom</span></a> section before proceeding to installation.</p>
+<div class="section" id="default">
+<span id="id1"></span><h3><a class="toc-backref" href="#id9">Default</a><a class="headerlink" href="#default" title="Permalink to this headline">¶</a></h3>
+<p>Before running installator ensure that:</p>
+<ul class="simple">
+<li>Your PYTHONPATH, TANGO_ROOT and TANGO_HOST environment variables are set. To do so, go to System Control Panel and click the Advanced System Settings. System Properties window will show up. Switch to ‘Advanced’ tab and then click the ‘Environment variables’ button. Click the ‘New’ button under ‘System Variables’ section and add previously mentioned variables.</li>
+</ul>
+<img alt="_images/addenvar.png" class="align-center" src="_images/addenvar.png" />
+<p class="centered">
+<strong>Adding new system variable</strong></p><img alt="_images/paths.png" class="align-center" src="_images/paths.png" />
+<p class="centered">
+<strong>PYTHONPATH, TANGO_HOST and TANGO_ROOT system variables</strong></p><ul class="simple">
+<li>You’ve added directory in which nssm.exe is located to your Path environment variable. Again, go to Environment Variables. This time, in ‘System Variables’ section find Path variable. Highlight it and click ‘Edit’. Add directory with nssm.exe in it.</li>
+</ul>
+<img alt="_images/envar.png" class="align-center" src="_images/envar.png" />
+<p class="centered">
+<strong>Adding new value to Path variable</strong></p><p>If you’re doing this on older systems, all values in Path variable will probably be written in one line. In this case, add semicolon at the very end and then add new value.</p>
+<ul class="simple">
+<li>Tango DataBaseds is running</li>
+</ul>
+<img alt="_images/databaseds.png" class="align-center" src="_images/databaseds.png" />
+<p class="centered">
+<strong>DataBaseds running in Jive</strong></p><p>With everything set as above you can start msi installer now. During installation a cmd window with informations about service installation will pop up. At the very end of it, an attempt of starting every one of them will be made. If all of the operations completed successfully, your TANGO archiving system should be ready to use.</p>
+<img alt="_images/serviceinstallation.png" class="align-center" src="_images/serviceinstallation.png" />
+<p class="centered">
+<strong>Successfull installation of Windows services</strong></p></div>
+<div class="section" id="custom">
+<span id="id2"></span><h3><a class="toc-backref" href="#id10">Custom</a><a class="headerlink" href="#custom" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="adding-devices-to-tangodb">
+<h4><a class="toc-backref" href="#id11">Adding devices to TangoDB</a><a class="headerlink" href="#adding-devices-to-tangodb" title="Permalink to this headline">¶</a></h4>
+<p>In order to change installed device servers settings, you’ll have to modify adddevices.py file first.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">PyTango</span>
+
+<span class="n">db</span> <span class="o">=</span> <span class="n">PyTango</span><span class="o">.</span><span class="n">Database</span><span class="p">()</span>
+<span class="n">dev_info</span> <span class="o">=</span> <span class="n">PyTango</span><span class="o">.</span><span class="n">DbDevInfo</span><span class="p">()</span>
+
+<span class="n">dev_info</span><span class="o">.</span><span class="n">server</span> <span class="o">=</span> <span class="s2">&quot;HdbArchiver/01&quot;</span>
+<span class="n">dev_info</span><span class="o">.</span><span class="n">_class</span> <span class="o">=</span> <span class="s2">&quot;HdbArchiver&quot;</span>
+<span class="n">dev_info</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;archiving/hdb/hdbarchiver.01_01&quot;</span>
+
+<span class="n">db</span><span class="o">.</span><span class="n">add_device</span><span class="p">(</span><span class="n">dev_info</span><span class="p">)</span>
+
+<span class="n">dev_info</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;archiving/hdb/hdbarchiver.01_02&quot;</span>
+
+<span class="n">db</span><span class="o">.</span><span class="n">add_device</span><span class="p">(</span><span class="n">dev_info</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="centered">
+<strong>Sample of addevices.py code</strong></p><p>In the case presented above, you can see two devices being added to TangoDB:</p>
+<ul class="simple">
+<li>archiving/hdb/hdbarchiver.01_01</li>
+<li>archiving/hdb/hdbarchiver.01_02</li>
+</ul>
+<p>These devices are served by the same device server, which is HdbArchiver/01. This DS is also serving the Tango Class - HdbArchiver.</p>
+<p>In summary, while adding a new devices to adddevices.py you need to define it by its name, class it belongs to and device server that serves them.</p>
+</div>
+<div class="section" id="modifying-sql-files">
+<h4><a class="toc-backref" href="#id12">Modifying SQL files</a><a class="headerlink" href="#modifying-sql-files" title="Permalink to this headline">¶</a></h4>
+<p>Every change made in addevices.py requires doing so also in SQL files. You can find them inside ArchivingRoot-16.2.4.zip archive in a folder named ‘db’. Those files are:</p>
+<ul class="simple">
+<li>my-hdb-device-install.sql</li>
+<li>my-tdb-device-install.sql</li>
+</ul>
+<p>If in addevices.py file you’ve changed only names of instances, classes, etc., you will need to make analogous changes to the SQL files. If you’ve added new devices you will need to do the same in the SQL files.</p>
+<img alt="_images/sql1.png" class="align-center" src="_images/sql1.png" />
+<p class="centered">
+<strong>Section defining device servers</strong></p><p>In the first section of them, change old names to new ones / write analogous INSERT INTO function. Values that need to be changed are:</p>
+<ul class="simple">
+<li>‘name’ - equivalent to PyTango’s ‘dev_info.name’</li>
+<li>‘domain’, ‘family’ and ‘member’ - device name decomposed to its components</li>
+<li>‘server’ - equivalent to PyTango’s ‘dev_info.server’</li>
+<li>‘class’ - equivalent to PyTango’s ‘dev_info._class’</li>
+</ul>
+<p>After you’re done with this part, scroll down until you’ll find section responsible for changing properties of devices and their class:</p>
+<img alt="_images/sql2.png" class="align-center" src="_images/sql2.png" />
+<p class="centered">
+<strong>Section with class/device properties</strong></p><p>Change old names of class/devices or/and add new ones. Note, that if you’ve added new device to already existing domain, you don’t have to write a new INSERT INTO function, but only add new values to already existing one:</p>
+<img alt="_images/sql3.png" class="align-center" src="_images/sql3.png" />
+<p class="centered">
+<strong>Adding new device properties</strong></p></div>
+<div class="section" id="id3">
+<h4><a class="toc-backref" href="#id13">Installation</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<p>After editing all of previously mentiond files, remember to create new ArchivingRoot-16.2.4.zip archive. Now you can go to <a class="reference internal" href="#default"><span class="std std-ref">Default</span></a> installation section.</p>
+</div>
+</div>
+</div>
+<div class="section" id="user-guide">
+<h2><a class="toc-backref" href="#id14">User Guide</a><a class="headerlink" href="#user-guide" title="Permalink to this headline">¶</a></h2>
+<p>Before starting Mambo all of Tango Archiving Device Servers must be running. If your installation went fine, you’ll be able to see them in Windows Services:</p>
+<img alt="_images/services.png" class="align-center" src="_images/services.png" />
+<p class="centered">
+<strong>Running archiving services</strong></p><p>You should also ensure, that they’re properly installed and working in Jive:</p>
+<img alt="_images/jive.png" class="align-center" src="_images/jive.png" />
+<p class="centered">
+<strong>Archiving device servers running in Jive</strong></p><p>To run Mambo you can use either mambo-rw.bat or mambo.bat, however the second one only allows user to visualize archived data, while mambo-rw.bat allows to create an archiving configuration.</p>
+<dl class="docutils">
+<dt>Before using Mambo, new user account needs to be created:</dt>
+<dd><ol class="first last arabic simple">
+<li>Run mambo-rw.bat or mambo.bat file located in %ARCHIVING_ROOT%/bin/win32</li>
+<li>Create a user account in the desired directory</li>
+</ol>
+</dd>
+</dl>
+<img alt="_images/mambocreate.png" class="align-center" src="_images/mambocreate.png" />
+<p class="centered">
+<strong>Setting up name and path for new user</strong></p><img alt="_images/mambouser.png" class="align-center" src="_images/mambouser.png" />
+<p class="centered">
+<strong>Choosing user account for current session</strong></p><p>Note that with the first opening of Mambo you’ll get two error messages:</p>
+<img alt="_images/mamboerror.png" class="align-center" src="_images/mamboerror.png" />
+<p class="centered">
+<strong>Error messages after the very first Mambo start-up</strong></p><p>This is normal because Mambo always tries to load a previous configuration (which doesn’t exists yet). These messages won’t appear next time and your Mambo will be ready to work with:</p>
+<img alt="_images/mambo.png" class="align-center" src="_images/mambo.png" />
+<p class="centered">
+<strong>Mambo after second run</strong></p></div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">TANGO Archive Installer</a><ul>
+<li><a class="reference internal" href="#description">Description</a><ul>
+<li><a class="reference internal" href="#sub-modules">sub modules</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li><a class="reference internal" href="#installation">Installation</a><ul>
+<li><a class="reference internal" href="#default">Default</a></li>
+<li><a class="reference internal" href="#custom">Custom</a><ul>
+<li><a class="reference internal" href="#adding-devices-to-tangodb">Adding devices to TangoDB</a></li>
+<li><a class="reference internal" href="#modifying-sql-files">Modifying SQL files</a></li>
+<li><a class="reference internal" href="#id3">Installation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#user-guide">User Guide</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to Archive Installator’s documentation!</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/chapter01.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, 3Controls Sp. z o.o..
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/chapter01.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

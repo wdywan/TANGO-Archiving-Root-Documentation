@@ -1,0 +1,54 @@
+=======================
+TANGO Archive Installer
+=======================
+
+.. contents::
+
+Description
+===========
+
+Installer for Tango Archiving:  https://sourceforge.net/projects/tango-cs/files/tools/ArchivingRoot-15.2.1.zip
+
+This package:
+
+* Installs HDB (Historical Database), TDB (Temporary Database), Archiving Manager, HDB/TDB ArchivingWatchers and HDB/TDB ArchivingExtractos as TANGO Device Servers
+* Runs mentioned Device Servers as Windows services at startup
+* Installs Mambo 
+
+sub modules
+-----------
+
+:createDB.bat: installation/configuration of HDB/TDB databases
+:installDS.bat: installation of HDB/TDB device servers as Windows services
+:ArchivingRoot: Tango archiving package containing:
+
+* scripts for starting archiving GUIs
+* MySql database creation scripts
+* scripts for starting archiving Tango Device Servers
+
+Prerequisites
+=============
+ 
+* Java Platform SE 6
+* MySql Database
+* a Tango control system
+
+Installation
+============
+ 
+Before running installator ensure that:
+
+* your TANGO_ROOT and TANGO_HOST environment variables are set
+* nssm.exe file can be found in %TANGO_ROOT%/bin path
+* Tango DataBaseds is running 
+
+Run .msi file.
+
+User Guide
+==========
+Before using Mambo, new user account needs to be created:
+	1. Open mambo-rw.bat file located in %ARCHIVING_ROOT%/bin/win32
+	2. Create a user account in the directory you want
+
+Note that with the first opening of Mambo you'll get two error messages. This is normal because Mambo always tries to load a previous configuration (which doesn't exists yet). These messages won't appear next time.
+

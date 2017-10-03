@@ -1,0 +1,234 @@
+=======================
+TANGO Archive Installer
+=======================
+
+.. contents::
+
+Description
+===========
+
+Installer for Tango Archiving:  https://sourceforge.net/projects/tango-cs/files/tools/ArchivingRoot-15.2.1.zip
+
+This package:
+
+* Installs HDB (Historical Database), TDB (Temporary Database), Archiving Manager, HDB/TDB ArchivingWatchers and HDB/TDB ArchivingExtractos as TANGO Device Servers
+* Runs mentioned Device Servers as Windows services at startup
+* Installs Mambo 
+
+sub modules
+-----------
+
+:createDB.bat: installation/configuration of HDB/TDB databases
+:installDS.bat: installation of HDB/TDB device servers as Windows services
+:ArchivingRoot: Tango archiving package containing:
+
+* scripts for starting archiving GUIs
+* MySql database creation scripts
+* scripts for starting archiving Tango Device Servers
+
+:adddevices.py: adds device servers to Tango DB
+
+Prerequisites
+=============
+ 
+* Java Platform SE 6
+* MySql Database
+* a Tango control system
+* PyTango
+* NSSM
+
+Installation
+============
+
+Default installation includes the following Device Servers and their instances in Tango DB:
+
+2xHDB Archiver
+
+* archiving/hdb/hdbarchiver.01_01
+* archiving/hdb/hdbarchiver.01_02
+
+2xTDB Archiver
+
+* archiving/tdb/tdbarchiver.01_01
+* archiving/tdb/tdbarchiver.01_02
+
+ArchivingManager
+
+* archiving/archivingmanager/1
+
+HDBArchivingWatcher
+
+* archiving/hdb/hdbarchivinwatcher.1
+
+TDBArchivingWatcher
+
+* archiving/tdb/tdbarchivinwatcher.1
+
+HDBArchivingExtractor
+
+* archiving/hdb/hdbextractor.1
+
+TDBArchivingExtractor
+
+* archiving/tdb/tdbextractor.1
+
+If those settings don't meet your requirements, you'll have to edit some of files included in this package. In that case go to :ref:`custom` section before proceeding to installation. 
+ 
+
+.. _default:
+
+Default
+-------
+ 
+Before running installator ensure that:
+
+* Your PYTHONPATH, TANGO_ROOT and TANGO_HOST environment variables are set. To do so, go to System Control Panel and click the Advanced System Settings. System Properties window will show up. Switch to 'Advanced' tab and then click the 'Environment variables' button. Click the 'New' button under 'System Variables' section and add previously mentioned variables.
+
+.. image:: /image/addenvar.png
+   :align: center
+.. centered:: Adding new system variable
+
+
+.. image:: /image/paths.png
+   :align: center
+.. centered:: PYTHONPATH, TANGO_HOST and TANGO_ROOT system variables
+
+
+* You've added directory in which nssm.exe is located to your Path environment variable. Again, go to Environment Variables. This time, in 'System Variables' section find Path variable. Highlight it and click 'Edit'. Add directory with nssm.exe in it.
+
+.. image:: /image/envar.png
+   :align: center
+.. centered:: Adding new value to Path variable
+
+If you're doing this on older systems, all values in Path variable will probably be written in one line. In this case, add semicolon at the very end and then add new value.
+
+
+* Tango DataBaseds is running 
+
+.. image:: /image/databaseds.png
+   :align: center
+.. centered:: DataBaseds running in Jive
+
+With everything set as above you can start msi installer now. During installation a cmd window with informations about service installation will pop up. At the very end of it, an attempt of starting every one of them will be made. If all of the operations completed successfully, your TANGO archiving system should be ready to use.  
+
+.. image:: /image/serviceinstallation.png
+   :align: center
+.. centered:: Successfull installation of Windows services
+
+.. _custom:
+
+Custom
+------
+
+Adding devices to TangoDB 
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+In order to change installed device servers settings, you'll have to modify adddevices.py file first. 
+
+.. code-block:: python
+
+   import PyTango
+
+   db = PyTango.Database()
+   dev_info = PyTango.DbDevInfo()
+
+   dev_info.server = "HdbArchiver/01"
+   dev_info._class = "HdbArchiver"
+   dev_info.name = "archiving/hdb/hdbarchiver.01_01"
+
+   db.add_device(dev_info)
+
+   dev_info.name = "archiving/hdb/hdbarchiver.01_02"
+
+   db.add_device(dev_info)
+
+.. centered:: Sample of addevices.py code
+
+In the case presented above, you can see two devices being added to TangoDB:
+
+* archiving/hdb/hdbarchiver.01_01
+* archiving/hdb/hdbarchiver.01_02
+
+These devices are served by the same device server, which is HdbArchiver/01. This DS is also serving the Tango Class - HdbArchiver.
+
+In summary, while adding a new devices to adddevices.py you need to define it by its name, class it belongs to and device server that serves them.
+
+Modifying SQL files
+^^^^^^^^^^^^^^^^^^^
+
+Every change made in addevices.py requires doing so also in SQL files. You can find them inside ArchivingRoot-16.2.4.zip archive in a folder named 'db'. Those files are:
+
+* my-hdb-device-install.sql
+* my-tdb-device-install.sql
+
+If in addevices.py file you've changed only names of instances, classes, etc., you will need to make analogous changes to the SQL files. If you've added new devices you will need to do the same in the SQL files.
+
+.. image:: /image/sql1.png
+   :align: center
+.. centered:: Section defining device servers
+
+In the first section of them, change old names to new ones / write analogous INSERT INTO function. Values that need to be changed are:
+
+* 'name' - equivalent to PyTango's 'dev_info.name'
+* 'domain', 'family' and 'member' - device name decomposed to its components
+* 'server' - equivalent to PyTango's 'dev_info.server'
+* 'class' - equivalent to PyTango's 'dev_info._class'
+
+After you're done with this part, scroll down until you'll find section responsible for changing properties of devices and their class:
+
+.. image:: /image/sql2.png
+   :align: center
+.. centered:: Section with class/device properties
+
+Change old names of class/devices or/and add new ones. Note, that if you've added new device to already existing domain, you don't have to write a new INSERT INTO function, but only add new values to already existing one:
+
+.. image:: /image/sql3.png
+   :align: center
+.. centered:: Adding new device properties
+
+
+Installation
+^^^^^^^^^^^^
+
+After editing all of previously mentiond files, remember to create new ArchivingRoot-16.2.4.zip archive. Now you can go to :ref:`default` installation section.
+
+User Guide
+==========
+Before starting Mambo all of Tango Archiving Device Servers must be running. If your installation went fine, you'll be able to see them in Windows Services:
+
+.. image:: /image/services.png
+   :align: center
+.. centered:: Running archiving services 
+
+You should also ensure, that they're properly installed and working in Jive:
+
+.. image:: /image/jive.png
+   :align: center
+.. centered:: Archiving device servers running in Jive
+
+To run Mambo you can use either mambo-rw.bat or mambo.bat, however the second one only allows user to visualize archived data, while mambo-rw.bat allows to create an archiving configuration.
+
+Before using Mambo, new user account needs to be created:
+	1. Run mambo-rw.bat or mambo.bat file located in %ARCHIVING_ROOT%/bin/win32
+	2. Create a user account in the desired directory
+
+.. image:: /image/mambocreate.png
+   :align: center
+.. centered:: Setting up name and path for new user
+
+.. image:: /image/mambouser.png
+   :align: center
+.. centered:: Choosing user account for current session
+
+
+Note that with the first opening of Mambo you'll get two error messages: 
+
+.. image:: /image/mamboerror.png
+   :align: center
+.. centered:: Error messages after the very first Mambo start-up
+
+This is normal because Mambo always tries to load a previous configuration (which doesn't exists yet). These messages won't appear next time and your Mambo will be ready to work with:
+
+.. image:: /image/mambo.png
+   :align: center
+.. centered:: Mambo after second run
